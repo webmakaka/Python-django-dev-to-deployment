@@ -2,7 +2,6 @@
 
 https://www.udemy.com/course/python-django-dev-to-deployment/
 
-
 <br/>
 
 **Original src:**  
@@ -52,7 +51,6 @@ Ctrl + Shift + P --> python select interpretator --> virtual
 
 http://gitignore.io/api/django
 
-
 <br/>
 
 ### 23. Exploring The Initial Files & Running The Server
@@ -64,7 +62,6 @@ http://127.0.0.1:8000/
 <br/>
 
 ![Application](/img/pic-01.png?raw=true)
-
 
 <br/>
 
@@ -78,13 +75,11 @@ http://127.0.0.1:8000/
 
     $ pip inistall autopep8
 
-
 http://localhost:8000/
 
 <br/>
 
 ![Application](/img/pic-02.png?raw=true)
-
 
 <br/>
 
@@ -98,4 +93,10 @@ http://localhost:8000/about
 
     $ python manage.py collectstatic
 
+<br/>
 
+### 27. Bootstrap Layout Markup
+
+<br/>
+
+![Application](/img/pic-03.png?raw=true)
