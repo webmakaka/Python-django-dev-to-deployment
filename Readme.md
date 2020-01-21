@@ -24,16 +24,11 @@ https://lokeshdhakar.com/projects/lightbox2/
 
 ### 22. Django Install & Project Setup
 
-    $ pip install django==2
+    $ pip install django==2.1
 
 <br/>
 
     $ pip freeze
-    asgiref==3.2.3
-    Django==2.0
-    pkg-resources==0.0.0
-    pytz==2019.3
-    sqlparse==0.3.0
 
 <br/>
 
@@ -48,3 +43,17 @@ Ctrl + Shift + P --> python select interpretator --> virtual
 <br/>
 
 http://gitignore.io/api/django
+
+
+<br/>
+
+### 23. Exploring The Initial Files & Running The Server
+
+    $ python manage.py runserver
+
+http://127.0.0.1:8000/
+
+
+<br/>
+
+![Application](/img/pic-01.png?raw=true)
