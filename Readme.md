@@ -2,6 +2,12 @@
 
 https://www.udemy.com/course/python-django-dev-to-deployment/
 
+
+<br/>
+
+**Original src:**  
+https://github.com/bradtraversy/btre_project
+
 <br/>
 
 ## Development
@@ -85,4 +91,11 @@ http://localhost:8000/
 ### 25. Pages Templates & Base Layout
 
 http://localhost:8000/about
+
+<br/>
+
+### 26. Static Files & Paths
+
+    $ python manage.py collectstatic
+
 
