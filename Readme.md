@@ -78,3 +78,11 @@ http://localhost:8000/
 <br/>
 
 ![Application](/img/pic-02.png?raw=true)
+
+
+<br/>
+
+### 25. Pages Templates & Base Layout
+
+http://localhost:8000/about
+
