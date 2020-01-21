@@ -32,7 +32,9 @@ https://lokeshdhakar.com/projects/lightbox2/
 
 <br/>
 
-    $ django-admin startproject app .
+    $ mkdir project
+    $ cd project
+    $ django-admin startproject btre .
 
 <br/>
 
@@ -53,7 +55,26 @@ http://gitignore.io/api/django
 
 http://127.0.0.1:8000/
 
-
 <br/>
 
 ![Application](/img/pic-01.png?raw=true)
+
+
+<br/>
+
+## 05. Apps, URLs & Templates
+
+<br/>
+
+### 24. Creating The Pages App
+
+    $ python manage.py startapp pages
+
+    $ pip inistall autopep8
+
+
+http://localhost:8000/
+
+<br/>
+
+![Application](/img/pic-02.png?raw=true)
