@@ -100,3 +100,13 @@ http://localhost:8000/about
 <br/>
 
 ![Application](/img/pic-03.png?raw=true)
+
+<br/>
+
+### 28. Index, About & Linking
+
+    $ python manage.py collectstatic
+
+<br/>
+
+![Application](/img/pic-04.png?raw=true)
