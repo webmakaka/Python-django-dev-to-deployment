@@ -110,3 +110,14 @@ http://localhost:8000/about
 <br/>
 
 ![Application](/img/pic-04.png?raw=true)
+
+<br/>
+
+### 29. Listings URLs & Template
+
+    $ python manage.py startapp listings
+    $ python manage.py startapp realtors
+
+<br/>
+
+![Application](/img/pic-05.png?raw=true)
