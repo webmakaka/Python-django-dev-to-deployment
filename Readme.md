@@ -198,3 +198,13 @@ contact_date: DATE
 <br/>
 
 ### 33. Create Listing Model
+
+<br/>
+
+### 34. Realtor Model & Run Migrations
+
+    $ pip install Pillow
+    $ python manage.py makemigrations
+    $ python manage.py migrate
+
+    
