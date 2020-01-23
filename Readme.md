@@ -121,3 +121,22 @@ http://localhost:8000/about
 <br/>
 
 ![Application](/img/pic-05.png?raw=true)
+
+<br/>
+
+## 05. Models, Migrations & Admin
+
+<br/>
+
+### 30. Install Postgres & PgAdmin
+
+I will use postgres from heroku free database for hobby
+
+<br/>
+
+### 31. Django Postgres Setup & Migrate
+
+    $ pip install psycopg2
+    $ pip install psycopg2-binary
+
+    $ python manage.py migrate
