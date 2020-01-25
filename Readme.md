@@ -218,3 +218,19 @@ http://localhost:8000/admin
 <br/>
 
 ![Application](/img/pic-06.png?raw=true)
+
+<br/>
+
+### 36. Media Folder & Adding Data
+
+admin -> Realtors --> Add
+
+<br/>
+
+![Application](/img/pic-07.png?raw=true)
+
+admin -> Listings --> Add
+
+<br/>
+
+![Application](/img/pic-08.png?raw=true)
