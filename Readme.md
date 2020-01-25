@@ -207,4 +207,14 @@ contact_date: DATE
     $ python manage.py makemigrations
     $ python manage.py migrate
 
-    
+<br/>
+
+### 35. Create Superuser & Register Models With Admin
+
+    $ python manage.py createsuperuser
+
+http://localhost:8000/admin
+
+<br/>
+
+![Application](/img/pic-06.png?raw=true)
