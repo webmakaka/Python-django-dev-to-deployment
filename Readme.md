@@ -234,3 +234,11 @@ admin -> Listings --> Add
 <br/>
 
 ![Application](/img/pic-08.png?raw=true)
+
+<br/>
+
+### 37. Admin Logo & CSS
+
+<br/>
+
+![Application](/img/pic-09.png?raw=true)
