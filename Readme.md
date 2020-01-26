@@ -242,3 +242,11 @@ admin -> Listings --> Add
 <br/>
 
 ![Application](/img/pic-09.png?raw=true)
+
+<br/>
+
+### 38. Customize Admin Display Data
+
+<br/>
+
+![Application](/img/pic-10.png?raw=true)
