@@ -258,3 +258,11 @@ admin -> Listings --> Add
 <br/>
 
 ### 39. Pull Data From Listings Model
+
+<br/>
+
+### 40. Display Listings In Template
+
+<br/>
+
+![Application](/img/pic-11.png?raw=true)
