@@ -250,3 +250,11 @@ admin -> Listings --> Add
 <br/>
 
 ![Application](/img/pic-10.png?raw=true)
+
+<br/>
+
+## 06. View Methods, Display & Search
+
+<br/>
+
+### 39. Pull Data From Listings Model
