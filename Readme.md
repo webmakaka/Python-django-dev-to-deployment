@@ -274,3 +274,21 @@ admin -> Listings --> Add
 <br/>
 
 ![Application](/img/pic-12.png?raw=true)
+
+<br/>
+
+### 42. Home & About Page Dynamic Content
+
+admin --> realtors --> Jenny Johnson --> is mvp
+
+<br/>
+
+![Application](/img/pic-13.png?raw=true)
+
+<br/>
+
+![Application](/img/pic-14.png?raw=true)
+
+<br/>
+
+![Application](/img/pic-15.png?raw=true)
