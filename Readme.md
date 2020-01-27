@@ -266,3 +266,11 @@ admin -> Listings --> Add
 <br/>
 
 ![Application](/img/pic-11.png?raw=true)
+
+<br/>
+
+### 41. Pagination, Order & Filter
+
+<br/>
+
+![Application](/img/pic-12.png?raw=true)
