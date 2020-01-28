@@ -305,3 +305,12 @@ admin --> realtors --> Jenny Johnson --> is mvp
 <br/>
 
 ![Application](/img/pic-17.png?raw=true)
+
+<br/>
+
+### 44. Search Form Choices
+
+<br/>
+
+![Application](/img/pic-18.png?raw=true)
+
