@@ -326,3 +326,15 @@ admin --> realtors --> Jenny Johnson --> is mvp
 <br/>
 
 ### 46. Preserving Form Input
+
+
+<br/>
+
+## 07. Accounts & Authentication
+
+<br/>
+
+### 47. Accounts App & URLs
+
+    $ python manage.py startapp accounts
+    
