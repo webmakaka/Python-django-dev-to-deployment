@@ -353,3 +353,11 @@ admin --> realtors --> Jenny Johnson --> is mvp
 <br/>
 
 ![Application](/img/pic-21.png?raw=true)
+
+<br/>
+
+### 50. User Registration
+
+<br/>
+
+![Application](/img/pic-22.png?raw=true)
