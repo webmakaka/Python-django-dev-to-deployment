@@ -338,3 +338,10 @@ admin --> realtors --> Jenny Johnson --> is mvp
 
     $ python manage.py startapp accounts
     
+<br/>
+
+### 48. Register & Login Templates
+
+<br/>
+
+![Application](/img/pic-20.png?raw=true)
