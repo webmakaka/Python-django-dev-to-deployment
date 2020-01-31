@@ -378,3 +378,19 @@ admin --> realtors --> Jenny Johnson --> is mvp
 <br/>
 
 ### 53. Dynamic Page Titles
+
+<br/>
+
+## 08. Contact Inquiries
+
+<br/>
+
+### 54. Contacts App & Model
+
+    $ python manage.py startapp contacts
+
+    $ python manage.py makemigrations contacts
+    $ python manage.py migrate
+
+
+
