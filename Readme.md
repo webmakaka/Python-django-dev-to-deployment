@@ -366,3 +366,11 @@ admin --> realtors --> Jenny Johnson --> is mvp
 <br/>
 
 ### 51. User Login
+
+<br/>
+
+### 52. Logout & Navbar Auth Links
+
+<br/>
+
+![Application](/img/pic-23.png?raw=true)
