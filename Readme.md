@@ -374,3 +374,7 @@ admin --> realtors --> Jenny Johnson --> is mvp
 <br/>
 
 ![Application](/img/pic-23.png?raw=true)
+
+<br/>
+
+### 53. Dynamic Page Titles
