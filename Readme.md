@@ -392,5 +392,10 @@ admin --> realtors --> Jenny Johnson --> is mvp
     $ python manage.py makemigrations contacts
     $ python manage.py migrate
 
+<br/>
 
+### 55. Contacts Admin Customization
 
+<br/>
+
+![Application](/img/pic-24.png?raw=true)
