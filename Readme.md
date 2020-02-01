@@ -408,7 +408,6 @@ admin --> realtors --> Jenny Johnson --> is mvp
 
 ![Application](/img/pic-25.png?raw=true)
 
-
 <br/>
 
 ### 57. Contact Form Submission
@@ -416,3 +415,26 @@ admin --> realtors --> Jenny Johnson --> is mvp
 <br/>
 
 ![Application](/img/pic-26.png?raw=true)
+
+<br/>
+
+### 58. Inquiry Check & Send Email
+
+Need update:
+
+```
+btre/settings.py
+
+EMAIL_HOST_USER = 'your_gmail_username@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_gmail_password'
+```
+
+and
+
+```
+contacts/views.py
+
+'admin.example@gmail.com'
+'additonal.example@gmail.com'
+
+```
