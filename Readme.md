@@ -438,3 +438,11 @@ contacts/views.py
 'additonal.example@gmail.com'
 
 ```
+
+<br/>
+
+### 59. Dashboard Functionality
+
+<br/>
+
+![Application](/img/pic-27.png?raw=true)
