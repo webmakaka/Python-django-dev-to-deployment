@@ -446,3 +446,324 @@ contacts/views.py
 <br/>
 
 ![Application](/img/pic-27.png?raw=true)
+
+
+<br/>
+
+## 09. Django Deployment
+
+https://gist.github.com/bradtraversy/cfa565b879ff1458dba08f423cb01d71
+
+<br/>
+
+### 60. Pushing To Github
+
+skipped
+
+<br/>
+
+### 61. Droplet Setup & SSH Keys
+
+skipped
+
+<br/>
+
+### 62. Server Security
+
+skipped
+
+<br/>
+
+### 63. Software & Database Setup
+
+skipped
+
+<br/>
+
+### 64. Virtual Env & File Pull
+
+    // localhost
+    $ pip freeze  > requirements.txt
+
+**possible also need package:**  
+psycopg2==2.8.4
+
+    // server
+    $ pip install -r requirements.txt
+
+<br/>
+
+### 65. Local Settings File
+
+    // on server set production settings file
+    $ cd btre
+    $ sudo nano local_settings.py
+
+<br/>
+
+```
+SECRET_KEY = 'ANY SECRET KEY'
+DEBUG = False
+ALLOWED_HOSTS = ['DIGITAL OCEAN IP ADDRESS']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'DB_NAME',
+        'USER': 'DB_USER',
+        'PASSWORD': 'DB_PASSWORD',
+        'HOST': 'ec2-50-19-127-115.compute-1.amazonaws.com'
+    }
+}
+
+# Email config
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'your_gmail_username@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_gmail_password'
+EMAIL_USE_TLS = True
+
+```
+
+<br/>
+
+### 66. Server Migrations & Data
+
+<br/>
+
+**Run Migrations**
+
+    $ python manage.py makemigrations
+    $ python manage.py migrate
+
+<br/>
+
+**Create super user**
+
+    $ python manage.py createsuperuser
+
+<br/>
+
+**Create static files**
+
+    $ python manage.py collectstatic
+
+<br/>
+
+**Create exception for port 8000**
+
+    $ sudo ufw allow 8000
+
+<br/>
+
+**Run Server**
+
+    $ python manage.py runserver 0.0.0.0:8000
+
+
+**Test the site at YOUR_SERVER_IP:8000**
+
+    $ http://<YOUR_SERVER_IP>:8000
+
+Add some data in the admin area
+
+<br/>
+
+### 67. Gunicorn Setup & Config
+
+https://gunicorn.org/
+
+    $ pip install gunicorn
+
+    $ pip freeze > requirements.txt
+
+    // Test Gunicorn serve
+    # gunicorn --bind 0.0.0.0:8000 btre.wsgi
+
+<br/>
+
+**Stop server & deactivate virtual env**
+
+    ctrl-c
+    # deactivate
+
+<br/>
+
+    $ sudo nano /etc/systemd/system/gunicorn.socket
+
+```
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+```
+
+<br/>
+
+    $ sudo nano /etc/systemd/system/gunicorn.service
+
+```
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=djangoadmin
+Group=www-data
+WorkingDirectory=/home/djangoadmin/pyapps/btre_project
+ExecStart=/home/djangoadmin/pyapps/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          btre.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+```
+
+<br/>
+
+**Start and enable Gunicorn socket**
+
+    $ sudo systemctl start gunicorn.socket
+    $ sudo systemctl enable gunicorn.socket
+
+<br/>
+
+**Check status of guinicorn**
+
+    $ sudo systemctl status gunicorn.socket
+
+**Check the existence of gunicorn.sock**
+
+    $ file /run/gunicorn.sock
+
+<br/>
+
+### 68. Nginx Setup
+
+    $ sudo nano /etc/nginx/sites-available/btre_project
+
+```
+server {
+    listen 80;
+    server_name YOUR_IP_ADDRESS;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/djangoadmin/pyapps/btre_project;
+    }
+    
+    location /media/ {
+        root /home/djangoadmin/pyapps/btre_project;    
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+}
+```
+
+<br/>
+
+**Enable the file by linking to the sites-enabled dir**
+
+    $ sudo ln -s /etc/nginx/sites-available/btre_project /etc/nginx/sites-enabled
+
+<br/>
+
+**Test NGINX config**
+
+    $ sudo nginx -t
+
+<br/>
+
+**Restart NGINX**
+
+    $ sudo systemctl restart nginx
+
+<br/>
+
+
+**Remove port 8000 from firewall and open up our firewall to allow normal traffic on port 80**
+
+    $ sudo ufw delete allow 8000
+    $ sudo ufw allow 'Nginx Full'
+
+You will probably need to up the max upload size to be able to create listings with images
+
+Open up the nginx conf file
+
+    $ sudo nano /etc/nginx/nginx.conf
+
+<br/>
+
+Add this to the http{} area
+
+```
+client_max_body_size 20M;
+```
+
+<br/>
+
+    $ sudo systemctl restart nginx
+
+
+**Media File Issue**
+
+You may have some issues with images not showing up. I would suggest, deleting all data and starting fresh as well as removeing the "photos" folder in the "media folder"
+
+    $ sudo rm -rf media/photos
+
+<br/>
+
+### 69. Adding A Domain
+
+Go to your domain registrar and create the following a record
+
+```
+@  A Record  YOUR_IP_ADDRESS
+www  CNAME  example.com
+```
+
+<br/>
+
+**Go to local_settings.py on the server and change "ALLOWED_HOSTS" to include the domain**
+
+    $ sudo nano local_settings.py
+
+ALLOWED_HOSTS = ['IP_ADDRESS', 'example.com', 'www.example.com']
+
+<br/>
+
+$ sudo nano /etc/nginx/sites-available/btre_project
+
+<br/>
+
+```
+server {
+    listen: 80;
+    server_name xxx.xxx.xxx.xxx example.com www.example.com;
+}
+```
+
+<br/>
+
+**Reload NGINX & Gunicorn**
+
+    $ sudo systemctl restart nginx
+    $ sudo systemctl restart gunicorn
+
+<br/>
+<br/>
+<br/>
+
+---
+
+<a href="https://marley.org"><strong>Marley</strong></a>
