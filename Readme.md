@@ -458,29 +458,7 @@ https://gist.github.com/bradtraversy/cfa565b879ff1458dba08f423cb01d71
 
 ### 60. Pushing To Github
 
-skipped
-
 <br/>
-
-### 61. Droplet Setup & SSH Keys
-
-skipped
-
-<br/>
-
-### 62. Server Security
-
-skipped
-
-<br/>
-
-### 63. Software & Database Setup
-
-skipped
-
-<br/>
-
-### 64. Virtual Env & File Pull
 
     // localhost
     $ pip freeze  > requirements.txt
@@ -488,7 +466,129 @@ skipped
 **possible also need package:**  
 psycopg2==2.8.4
 
-    // server
+
+<br/>
+
+### 61. Droplet Setup & SSH Keys
+
+Create a Droplet
+
+Ubuntu 18.04.3 (LTS)
+
+$5/mo
+
+Frankfurt
+
+Create
+
+<br/>
+
+    $ ssh root@<DO_PUBLIC_IP>
+
+<br/>
+
+### 62. Server Security
+
+    # adduser djangoadmin
+    # usermod -aG sudo djangoadmin
+
+    # cd /home/djangoadmin/
+    # mkdir .ssh
+    # cd .ssh/
+    # vi authorized_keys
+
+<br/>
+
+add key from localhost
+
+    $ cat ~/.ssh/id_rsa.pub
+
+<br/>
+
+    $ ssh djangoadmin@<DO_PUBLIC_IP>
+
+<br/>
+
+**Disable root login**
+
+    $ sudo vi /etc/ssh/sshd_config
+
+<br/>
+
+```
+PermitRootLogin no
+PasswordAuthentication no
+```
+
+<br/>
+
+    $ sudo systemctl reload sshd
+
+<br/>
+
+**Simple Firewall Setup**
+
+    $ sudo ufw app list
+    $ sudo ufw allow OpenSSH
+    $ sudo ufw enable
+    $ sudo ufw status
+
+<br/>
+
+### 63. Software & Database Setup
+
+    $ sudo apt update -y && sudo apt upgrade -y
+
+    $ sudo apt install -y python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl
+
+<br/>
+
+**Postgres Database & User Setup**
+
+    $ sudo -u postgres psql
+
+    CREATE DATABASE btre_prod;
+
+    CREATE USER dbadmin WITH PASSWORD 'abc123!';
+
+<br/>
+
+    ALTER ROLE dbadmin SET client_encoding TO 'utf8';
+    ALTER ROLE dbadmin SET default_transaction_isolation TO 'read committed';
+    ALTER ROLE dbadmin SET timezone TO 'UTC';
+
+    GRANT ALL PRIVILEGES ON DATABASE btre_prod TO dbadmin;
+
+    \q
+
+<br/>
+
+### 64. Virtual Env & File Pull
+
+<br/>
+
+**Vitrual Environment**
+
+    $ sudo apt install -y python3-venv
+
+<br/>
+
+    $ mkdir ~/projects && cd ~/projects
+
+<br/>
+
+    $ python3 -m venv ./venv
+    $ source venv/bin/activate
+
+
+
+
+<br/>
+
+    $ git clone https://marley-golang@bitbucket.org/marley-python/python-django-dev-to-deployment.git
+
+    $ cd python-django-dev-to-deployment/
+
     $ pip install -r requirements.txt
 
 <br/>
@@ -496,8 +596,11 @@ psycopg2==2.8.4
 ### 65. Local Settings File
 
     // on server set production settings file
-    $ cd btre
-    $ sudo nano local_settings.py
+    $ cd project/btre/
+
+<br/>
+
+    $ vi local_settings.py
 
 <br/>
 
@@ -509,19 +612,19 @@ ALLOWED_HOSTS = ['DIGITAL OCEAN IP ADDRESS']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'DB_NAME',
-        'USER': 'DB_USER',
-        'PASSWORD': 'DB_PASSWORD',
-        'HOST': 'ec2-50-19-127-115.compute-1.amazonaws.com'
+        'NAME': 'btre_prod',
+        'USER': 'dbadmin',
+        'PASSWORD': 'abc123!',
+        'HOST': 'localhost'
     }
 }
 
 # Email config
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'your_gmail_username@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_gmail_password'
-EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'your_gmail_username@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your_gmail_password'
+# EMAIL_USE_TLS = True
 
 ```
 
@@ -532,6 +635,8 @@ EMAIL_USE_TLS = True
 <br/>
 
 **Run Migrations**
+
+    $ cd /home/djangoadmin/projects/python-django-dev-to-deployment/project
 
     $ python manage.py makemigrations
     $ python manage.py migrate
@@ -578,7 +683,8 @@ https://gunicorn.org/
     $ pip freeze > requirements.txt
 
     // Test Gunicorn serve
-    # gunicorn --bind 0.0.0.0:8000 btre.wsgi
+    $ cd /home/djangoadmin/projects/python-django-dev-to-deployment/project/
+    $ gunicorn --bind 0.0.0.0:8000 btre.wsgi
 
 <br/>
 
@@ -589,7 +695,7 @@ https://gunicorn.org/
 
 <br/>
 
-    $ sudo nano /etc/systemd/system/gunicorn.socket
+    $ sudo vi /etc/systemd/system/gunicorn.socket
 
 ```
 [Unit]
@@ -604,7 +710,7 @@ WantedBy=sockets.target
 
 <br/>
 
-    $ sudo nano /etc/systemd/system/gunicorn.service
+    $ sudo vi /etc/systemd/system/gunicorn.service
 
 ```
 [Unit]
@@ -615,8 +721,8 @@ After=network.target
 [Service]
 User=djangoadmin
 Group=www-data
-WorkingDirectory=/home/djangoadmin/pyapps/btre_project
-ExecStart=/home/djangoadmin/pyapps/venv/bin/gunicorn \
+WorkingDirectory=/home/djangoadmin/projects/python-django-dev-to-deployment/project
+ExecStart=/home/djangoadmin/projects/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind unix:/run/gunicorn.sock \
@@ -647,7 +753,7 @@ WantedBy=multi-user.target
 
 ### 68. Nginx Setup
 
-    $ sudo nano /etc/nginx/sites-available/btre_project
+    $ sudo vi /etc/nginx/sites-available/python-django-dev-to-deployment
 
 ```
 server {
@@ -656,11 +762,11 @@ server {
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root /home/djangoadmin/pyapps/btre_project;
+        root /home/djangoadmin/projects/python-django-dev-to-deployment/project;
     }
     
     location /media/ {
-        root /home/djangoadmin/pyapps/btre_project;    
+        root /home/djangoadmin/projects/python-django-dev-to-deployment/project;    
     }
 
     location / {
@@ -674,7 +780,7 @@ server {
 
 **Enable the file by linking to the sites-enabled dir**
 
-    $ sudo ln -s /etc/nginx/sites-available/btre_project /etc/nginx/sites-enabled
+    $ sudo ln -s /etc/nginx/sites-available/python-django-dev-to-deployment /etc/nginx/sites-enabled
 
 <br/>
 
@@ -700,7 +806,7 @@ You will probably need to up the max upload size to be able to create listings w
 
 Open up the nginx conf file
 
-    $ sudo nano /etc/nginx/nginx.conf
+    $ sudo vi /etc/nginx/nginx.conf
 
 <br/>
 
@@ -736,13 +842,16 @@ www  CNAME  example.com
 
 **Go to local_settings.py on the server and change "ALLOWED_HOSTS" to include the domain**
 
-    $ sudo nano local_settings.py
+    $ sudo vi local_settings.py
 
+```
 ALLOWED_HOSTS = ['IP_ADDRESS', 'example.com', 'www.example.com']
+```
 
 <br/>
 
-$ sudo nano /etc/nginx/sites-available/btre_project
+    $ sudo vi /etc/nginx/sites-available/python-django-dev-to-deployment 
+
 
 <br/>
 
