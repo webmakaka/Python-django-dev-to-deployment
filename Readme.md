@@ -585,7 +585,7 @@ PasswordAuthentication no
 
 <br/>
 
-    $ git clone https://marley-golang@bitbucket.org/marley-python/python-django-dev-to-deployment.git
+    $ git clone https://github.com/webmakaka/Python-django-dev-to-deployment
 
     $ cd python-django-dev-to-deployment/
 
